@@ -1,7 +1,9 @@
 {
     "macros": [
         "MBED_BOOTLOADER_SIZE=(32*1024)",
-        "ARM_UC_USE_PAL_BLOCKDEVICE=1"
+        "ARM_UC_USE_PAL_BLOCKDEVICE=1",
+        "DISABLE_ERROR_DESCRIPTION",
+        "MCC_MINIMAL"
     ],
     "target_overrides": {
         "*": {
@@ -16,7 +18,7 @@
             "mbed-client-pal.pal-dns-api-version"       : 2,
             "mbed-cloud-client.external-sst-support"    : 1,
             "update-client.storage-locations"           : 1,
-            "mbed-trace.enable"                         : null,
+            "mbed-trace.enable"                         : false,
             "events.shared-stacksize"                   : 2048,
             "nsapi.default-wifi-security"               : "WPA_WPA2",
             "nsapi.default-wifi-ssid"                   : "\"SSID\"",
@@ -137,6 +139,39 @@
             "sd.SPI_MISO"                               : "PC_2",
             "sd.SPI_CLK"                                : "PC_7",
             "sd.SPI_CS"                                 : "PB_9"
+        },
+        "MTS_DRAGONFLY_F411RE": {
+            "client_app.mbedtls-user-config-file"       : "\"mbedTLSConfig_mbedOS_SW_TRNG_PSA.h\"",
+            "client_app.pal-user-defined-configuration" : "\"pal_config_non_trng_MbedOS.h\"",
+            "target.extra_labels_add"                   : ["PSA"],
+            "target.macros_add"                         : ["MBEDTLS_ENTROPY_NV_SEED"],
+            "target.components_add"                     : ["SPIF"],
+            "target.macros_remove"                      : ["MBEDTLS_CONFIG_HW_SUPPORT"],
+            "target.network-default-interface-type"     : "CELLULAR",
+            "target.post_binary_hook"                   : null,
+            "cellular.use-apn-lookup": false,
+            "ppp-cell-iface.apn-lookup": false,
+            "nsapi.default-cellular-apn": "\"phone\"",
+            "lwip.ipv6-enabled": false,
+            "lwip.ipv4-enabled"                         : true,
+            "lwip.ethernet-enabled"                     : false,
+            "lwip.ppp-enabled"                          : true,
+            "lwip.tcp-enabled"                          : true,
+            "cellular.debug-at"                         : true,
+            "target.bootloader_img"                     : "tools/mbed-bootloader-MTS_DRAGONFLY_F411RE.bin",
+            "target.header_offset"                      : "0x10000",
+            "target.app_offset"                         : "0x10400",
+            "update-client.bootloader-details"          : "0x8007338",
+            "update-client.storage-address"             : "(1024*1024*1)",
+            "update-client.storage-size"                : "(1024*1024*1)", 
+            "update-client.storage-locations"           : 1,
+            "update-client.storage-page"                : 1,
+            "mbed-cloud-client.update-storage"          : "ARM_UCP_FLASHIAP_BLOCKDEVICE",
+            "storage_tdb_internal.internal_base_address": "(MBED_ROM_START+32*1024)",
+            "storage_tdb_internal.internal_size"        : "(2*16*1024)",
+            "update-client.application-details"         : "(MBED_CONF_STORAGE_TDB_INTERNAL_INTERNAL_BASE_ADDRESS + MBED_CONF_STORAGE_TDB_INTERNAL_INTERNAL_SIZE)",
+            "application-start-address"                  : "(MBED_CONF_UPDATE_CLIENT_APPLICATION_DETAILS+1024)",
+            "storage.storage_type"                      : "TDB_INTERNAL"
         }
     },
     "config": {
@@ -152,6 +187,11 @@
         "led-pinname"   : {
             "help"      : "PinName for led, which is attached to led blink resource.",
             "value"     : "LED_RED"
+        },
+         "application-start-address": {
+            "help": "Address to the beginning of the active application firmware in flash",
+            "value": null
         }
     }
 }
+
