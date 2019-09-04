@@ -63,6 +63,18 @@ void unregister(void);
 // Pointer to mbedClient, used for calling close function.
 static SimpleM2MClient *client;
 
+void update_resources()
+{
+
+    if(client->is_client_registered()) {
+    	uint16_t temp = button_res->get_value_int() + 1;
+
+    	button_res->set_value(temp);
+
+    	printf("Set resource values to %d\n\r", temp);
+    }
+}
+
 void pattern_updated(const char *)
 {
     printf("PUT received, new value: %s\n", pattern_res->get_value_string().c_str());
@@ -277,7 +289,8 @@ void main_application(void)
 
     // Check if client is registering or registered, if true sleep and repeat.
     while (mbedClient.is_register_called()) {
-        mcc_platform_do_wait(100);
+        mcc_platform_do_wait(10000);
+        update_resources();
     }
 
     // Client unregistered, disconnect and exit program.

@@ -133,7 +133,35 @@
             "sd.SPI_MISO"                               : "PC_2",
             "sd.SPI_CLK"                                : "PC_7",
             "sd.SPI_CS"                                 : "PB_9"
+        },
+        "MTS_DRAGONFLY_F413RH": {
+            "client_app.pal-user-defined-configuration" : "\"pal_config_MbedOS.h\"",
+            "target.components_add"                     : ["SPIF"],
+            "target.network-default-interface-type"     : "CELLULAR",
+            "cellular.use-apn-lookup"                   : false,
+            "nsapi.default-cellular-apn"                : "\"cc.m2m.ispsn\"",
+            "ppp-cell-iface.apn-lookup"                 : false,
+            "lwip.ipv6-enabled"                         : false,
+            "lwip.ipv4-enabled"                         : true,
+            "lwip.ethernet-enabled"                     : false,
+            "lwip.ppp-enabled"                          : true,
+            "lwip.tcp-enabled"                          : true,
+            "cellular.debug-at"                         : 1,
+            "target.bootloader_img"                     : "tools/mbed-bootloader-MTS_DRAGONFLY_F413RH-v4.0.3.bin",
+            "target.header_offset"                      : "0x10000",
+            "target.app_offset"                         : "0x10400",
+            "update-client.bootloader-details"          : "0x8007338",
+            "update-client.storage-address"             : "(1024*1024*1)",
+            "update-client.storage-size"                : "(1024*1024*1)",
+            "update-client.storage-locations"           : 1,
+            "update-client.storage-page"                : 1,
+            "mbed-cloud-client.update-storage"          : "ARM_UCP_FLASHIAP_BLOCKDEVICE",
+            "storage_tdb_internal.internal_base_address": "(MBED_ROM_START+32*1024)",
+            "storage_tdb_internal.internal_size"        : "(2*16*1024)",
+            "update-client.application-details"         : "(MBED_CONF_STORAGE_TDB_INTERNAL_INTERNAL_BASE_ADDRESS + MBED_CONF_STORAGE_TDB_INTERNAL_INTERNAL_SIZE)",
+            "storage.storage_type"                      : "TDB_INTERNAL"
         }
+
     },
     "config": {
         "developer-mode": {
