@@ -71,7 +71,7 @@ void update_resources()
 
     	button_res->set_value(temp);
 
-    	printf("Set resource values to %d\n\r", temp);
+    	printf("-=Virtual Button Press=--> count= %d\n\r", temp);
     }
 }
 
